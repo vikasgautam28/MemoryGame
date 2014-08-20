@@ -18,7 +18,7 @@
     if (self) {
         // Initialization code
         
-        photoView = [[UIImageView alloc] initWithFrame:frame];
+        photoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self.layer setCornerRadius:5.f];
         self.backgroundColor=[UIColor lightGrayColor];
         [self addSubview:photoView];
