@@ -27,12 +27,13 @@
 @property (nonatomic, strong) GameObjectManager *objectManager;
 @property (nonatomic, strong) UICollectionView *photoGrid;
 @property (nonatomic, strong) UIImageView *randomImage;
-
+@property (nonatomic, strong) NSMutableArray *imagesDisplayed;
 
 @end
 
 @implementation ViewController
 
+@synthesize imagesDisplayed;
 @synthesize randomImage;
 @synthesize timerLabel;
 @synthesize timer;
@@ -44,15 +45,26 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    objectManager = [GameObjectManager getManager];
-    seconds = 15;
-    imagesToBePlaced = 9;
+    [self setInitialParams];
     [objectManager setDelegate:self];
     [self loadData];
     
     [self addCollectionView];
     [self addImageView];
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void) setInitialParams {
+    objectManager = [GameObjectManager getManager];
+    seconds = 15;
+    imagesToBePlaced = 9;
+    
+    imagesDisplayed = [[NSMutableArray alloc] init];
+    
+    for(int i=0;i<9;i++) {
+        [imagesDisplayed addObject:[NSNumber numberWithInt:0]];
+    }
+    
 }
 
 -(void) addTimerLabel {
@@ -90,16 +102,21 @@
         [self invertImages];
         [timer invalidate];
         
-        [self startGame];
+        [self SelectRandomImage];
     }
 }
 
--(void) startGame {
+-(void) SelectRandomImage {
     
     if(imagesToBePlaced!=0)
     {
         randomNum = arc4random() %9;
         imagesToBePlaced--;
+        
+        while([[imagesDisplayed objectAtIndex:randomNum] intValue]==1) {
+            randomNum = arc4random() %9;
+        }
+        
         //randomImageActualframe = [[photoGrid cellForItemAtIndexPath:[NSIndexPath indexPathForRow:randomNum/3 inSection:randomNum%3]] frame];
         
         [randomImage setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:randomNum] photoURL]]
@@ -110,6 +127,11 @@
         
         
     }
+    else {
+        
+        //
+    }
+    
 }
 
 
@@ -144,46 +166,8 @@
     randomImage.image= [UIImage imageNamed:@"download.jpeg"];
     [self.view addSubview:randomImage];
     
-//    draggableImage = [[DraggableImageView alloc] initWithFrame:CGRectMake(90, 420, 100, 100)];
-//    //[button setBackgroundColor:[UIColor grayColor]];
-//    //    randomImageView.userInteractionEnabled=YES;
-////    [randomImageView setBackgroundColor:[UIColor grayColor]];
-////    UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanFrom:)];
-////    //[gestureRecognizer setNumberOfTapsRequired:1];
-////    [randomImageView addGestureRecognizer:gestureRecognizer];
-//    
-//    [draggableImage addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragInside];
-//    [draggableImage addTarget:self action:@selector(imageMoved:withEvent:) forControlEvents:UIControlEventTouchDragOutside];
-//    [self.view addSubview:draggableImage];
+
 }
-//
-//- (IBAction) imageMoved:(id) sender withEvent:(UIEvent *) event
-//{
-//    UIControl *control = sender;
-//    
-//    UITouch *t = [[event allTouches] anyObject];
-//    CGPoint pPrev = [t previousLocationInView:control];
-//    CGPoint p = [t locationInView:control];
-//    
-//    CGPoint center = control.center;
-//    center.x += p.x - pPrev.x;
-//    center.y += p.y - pPrev.y;
-//    control.center = center;
-//    
-//    if(CGRectContainsPoint(randomImageActualframe, center)) {
-//        
-//        [draggableImage removeFromSuperview];
-//        
-//        id cell =[photoGrid cellForItemAtIndexPath:[NSIndexPath indexPathForRow:randomNum/3 inSection:randomNum%3]];
-//        [((photoCollectionCell*)cell).photoView setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:randomNum] photoURL]]
-//    placeholderImage:[UIImage imageNamed:@""]
-//    completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-//        
-//    }];
-//
-//    }
-//    
-//}
 
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -197,6 +181,9 @@
             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                 
             }];
+        
+        [imagesDisplayed setObject:[NSNumber numberWithInt:1] atIndexedSubscript:index];
+        [self SelectRandomImage];
 
         
     }
