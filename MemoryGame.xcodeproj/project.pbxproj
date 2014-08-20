@@ -25,6 +25,8 @@
 		1D10981119A463FC0082185C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 1D10981019A463FC0082185C /* Podfile */; };
 		1D10981619A464890082185C /* GameObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D10981519A464890082185C /* GameObjectManager.m */; };
 		1D10983719A4C5B10082185C /* PhotoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D10983619A4C5B10082185C /* PhotoData.m */; };
+		9214173619A528DA00EA5D19 /* download.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9214173519A528DA00EA5D19 /* download.jpeg */; };
+		9214173919A5329000EA5D19 /* DraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9214173819A5329000EA5D19 /* DraggableImageView.m */; };
 		DE10C18EB6D94DE483A5428F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8318C453AEC745CE805CDD69 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +68,9 @@
 		1D10983519A4C5B10082185C /* PhotoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoData.h; sourceTree = "<group>"; };
 		1D10983619A4C5B10082185C /* PhotoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoData.m; sourceTree = "<group>"; };
 		8318C453AEC745CE805CDD69 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9214173519A528DA00EA5D19 /* download.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = download.jpeg; sourceTree = "<group>"; };
+		9214173719A5329000EA5D19 /* DraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableImageView.h; sourceTree = "<group>"; };
+		9214173819A5329000EA5D19 /* DraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableImageView.m; sourceTree = "<group>"; };
 		B6DBA18D12614BEEB8D51C94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -136,6 +141,7 @@
 				1D1097E819A4411F0082185C /* AppDelegate.m */,
 				1D1097EA19A4411F0082185C /* Main.storyboard */,
 				1D1097F019A4411F0082185C /* Images.xcassets */,
+				9214173519A528DA00EA5D19 /* download.jpeg */,
 				1D1097DF19A4411F0082185C /* Supporting Files */,
 				1D10981419A464890082185C /* GameObjectManager.h */,
 				1D10981519A464890082185C /* GameObjectManager.m */,
@@ -179,6 +185,8 @@
 				1D10980E19A447150082185C /* photoCollectionCell.m */,
 				1D1097ED19A4411F0082185C /* ViewController.h */,
 				1D1097EE19A4411F0082185C /* ViewController.m */,
+				9214173719A5329000EA5D19 /* DraggableImageView.h */,
+				9214173819A5329000EA5D19 /* DraggableImageView.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -272,6 +280,7 @@
 			files = (
 				1D1097F119A4411F0082185C /* Images.xcassets in Resources */,
 				1D1097E319A4411F0082185C /* InfoPlist.strings in Resources */,
+				9214173619A528DA00EA5D19 /* download.jpeg in Resources */,
 				1D10981119A463FC0082185C /* Podfile in Resources */,
 				1D1097EC19A4411F0082185C /* Main.storyboard in Resources */,
 			);
@@ -325,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9214173919A5329000EA5D19 /* DraggableImageView.m in Sources */,
 				1D10983719A4C5B10082185C /* PhotoData.m in Sources */,
 				1D1097EF19A4411F0082185C /* ViewController.m in Sources */,
 				1D1097E919A4411F0082185C /* AppDelegate.m in Sources */,
