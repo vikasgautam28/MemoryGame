@@ -11,6 +11,7 @@
 @implementation photoCollectionCell
 
 @synthesize photoView;
+@synthesize loader;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -18,10 +19,14 @@
     if (self) {
         // Initialization code
         
+        loader = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(10,10, 10, 10)];
+        loader.activityIndicatorViewStyle=UIActivityIndicatorViewStyleGray;
+        [loader startAnimating];
         photoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [self.layer setCornerRadius:5.f];
         self.backgroundColor=[UIColor lightGrayColor];
         [self addSubview:photoView];
+        [self addSubview:loader];
     
     }
     return self;

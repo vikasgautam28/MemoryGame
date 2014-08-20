@@ -11,5 +11,6 @@
 @interface photoCollectionCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *photoView;
+@property (nonatomic, strong) UIActivityIndicatorView *loader;
 
 @end

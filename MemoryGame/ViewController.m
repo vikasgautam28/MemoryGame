@@ -162,7 +162,7 @@
                                    placeholderImage:[UIImage imageNamed:@""]
                                           completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
                                               
-                                              
+                                              [cell.loader stopAnimating];
                                           }];
     }
     return cell;
