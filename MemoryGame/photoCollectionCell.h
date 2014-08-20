@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  photoCollectionCell.h
 //  MemoryGame
 //
 //  Created by Vikas on 20/08/14.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface photoCollectionCell : UICollectionViewCell
+
+@property (nonatomic, strong) UIImageView *photoView;
 
 @end
