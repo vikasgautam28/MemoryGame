@@ -12,6 +12,7 @@
 #import "PhotoData.h"
 #import "DraggableImageView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
+#import <AudioToolbox/AudioToolbox.h>
 @interface ViewController () {
     
     int seconds;
@@ -117,13 +118,14 @@
             randomNum = arc4random() %9;
         }
         
-        //randomImageActualframe = [[photoGrid cellForItemAtIndexPath:[NSIndexPath indexPathForRow:randomNum/3 inSection:randomNum%3]] frame];
         
-        [randomImage setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:randomNum] photoURL]]
-                       placeholderImage:[UIImage imageNamed:@""]
-                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                                  
-                              }];
+        
+        [randomImage sd_setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:randomNum]photoURL]]
+                       placeholderImage:nil
+                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
+            
+        }];
+
         
         
     }
@@ -176,16 +178,22 @@
     if(index == randomNum)
     {
         id cell =[photoGrid cellForItemAtIndexPath:indexPath];
-                [((photoCollectionCell*)cell).photoView setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:index] photoURL]]
-            placeholderImage:[UIImage imageNamed:@""]
-            completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                
-            }];
+        
+        
+        [((photoCollectionCell*)cell).photoView sd_setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:index] photoURL]]
+                       placeholderImage:nil
+                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
+                                  
+                              }];
+        
         
         [imagesDisplayed setObject:[NSNumber numberWithInt:1] atIndexedSubscript:index];
         [self SelectRandomImage];
 
         
+    } else {
+        
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
 }
 
@@ -208,19 +216,22 @@
     int arrayIndex = indexPath.section*3+indexPath.row;
     
     if(photosArray!=nil && [photosArray count]>0) {
+        
+        
+        [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:arrayIndex] photoURL]]
+                                                  placeholderImage:nil
+                                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
+                                                             
+                                                             [cell.loader stopAnimating];
+                                                             
+                                                             if(arrayIndex == [photosArray count]-1)
+                                                             {
+                                                                 [self addTimerLabel];
+                                                             }
+                                                             
+                                                         }];
+
     
-    [cell.photoView setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:arrayIndex] photoURL]]
-                                   placeholderImage:[UIImage imageNamed:@""]
-                                          completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {
-                                              
-                                              [cell.loader stopAnimating];
-                                              
-                                              if(arrayIndex == [photosArray count]-1)
-                                              {
-                                                  [self addTimerLabel];
-                                              }
-                                              
-                                          }];
     }
     return cell;
 }
@@ -243,7 +254,8 @@
 -(void) loadData {
     
     NSString *urlPath = @"/services/feeds/photos_public.gne";
-    NSDictionary *queryParams = @{@"format" : @"json"};
+    NSDictionary *queryParams = @{@"format" : @"json",
+                                  @"lang": @"en-us"};
     [objectManager getObjectForClass:[PhotoData class] fromURLPath:urlPath withParams:queryParams];
     
 }
@@ -256,32 +268,38 @@
     NSLog(@"%@",jsonString);
     NSLog(@"==========================================");
     NSLog(@"%@",trimmedString);
-    NSData* bytes = [trimmedString dataUsingEncoding:NSUTF8StringEncoding];
+    NSData* bytes = [trimmedString dataUsingEncoding:NSUTF16StringEncoding];
     NSError *jsonParsingError = nil;
-    NSDictionary * jsonDataObject = [NSJSONSerialization JSONObjectWithData:bytes options:0 error:&jsonParsingError];
-    NSArray *photosJsonArray = [jsonDataObject valueForKeyPath:@"items"];
+    NSDictionary * jsonDataObject = [NSJSONSerialization JSONObjectWithData:bytes options:NSJSONReadingAllowFragments error:&jsonParsingError];
     
-    int i=0;
     
-    for(NSDictionary * photoJSON in photosJsonArray)
-    {
+    
+    
+        NSLog(@"%@",jsonParsingError);
         
+        NSArray *photosJsonArray = [jsonDataObject valueForKeyPath:@"items"];
         
-        if(i<9) {
+        int i=0;
+        
+        for(NSDictionary * photoJSON in photosJsonArray)
+        {
             
-            PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
             
-            [photosArray addObject:photobj];
+            if(i<9) {
+                
+                PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
+                
+                [photosArray addObject:photobj];
+                
+                i++;
+            }
+            else {
+                
+                break;
+            }
             
-            i++;
         }
-        else {
-            
-            break;
-        }
-        
-    }
-    
+
     
     [photoGrid reloadData];
 }
