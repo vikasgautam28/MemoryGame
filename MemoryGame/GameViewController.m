@@ -119,11 +119,11 @@
                                             repeats:YES];
     [self.view addSubview:timerLabel];
     
-
+    
 }
 
 - (void)subtractTime {
-
+    
     seconds--;
     
     if(seconds<10) {
@@ -134,8 +134,10 @@
         
         timerLabel.text = [NSString stringWithFormat:@"00:%i",seconds];
     }
-
+    
     if (seconds == 0) {
+        
+        [self addImageView];
         [timerLabel removeFromSuperview];
         [self addScoreLabel];
         [self invertImages];
@@ -154,7 +156,7 @@
     scoreLabel.textColor = THEME_COLOR;
     
     [self.view addSubview:scoreLabel];
-
+    
 }
 
 -(void) SelectRandomImage {
@@ -173,9 +175,9 @@
         [randomImage sd_setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:randomNum]photoURL]]
                        placeholderImage:nil
                               completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
-            
-        }];
-
+                                  
+                              }];
+        
         
         
     }
@@ -194,7 +196,7 @@
         gameOverView.scoreLabel.text=scoreText;
         [gameOverView.scoreLabel sizeToFit];
         [self.view addSubview:gameOverView];
-
+        
         
         //
     }
@@ -233,12 +235,12 @@
     randomImage.image= [UIImage imageNamed:@"download.jpeg"];
     [self.view addSubview:randomImage];
     
-
+    
 }
 
 -(void) collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    int index = indexPath.section*3+indexPath.row;
+    long index = indexPath.section*3+indexPath.row;
     
     if(index == randomNum)
     {
@@ -251,22 +253,22 @@
         
         
         [((photoCollectionCell*)cell).photoView sd_setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:index] photoURL]]
-                       placeholderImage:nil
-                              completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
-                                  
-                              }];
+                                                  placeholderImage:nil
+                                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
+                                                             
+                                                         }];
         
         
         [imagesDisplayed setObject:[NSNumber numberWithInt:1] atIndexedSubscript:index];
         [self SelectRandomImage];
-
+        
         
     } else {
         
         score-=50;
         
         scoreLabel.text=[NSString stringWithFormat:@"Score : %i",score];
-
+        
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
         [self shakeImage];
     }
@@ -288,25 +290,25 @@
     
     photoCollectionCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"photoCell" forIndexPath:indexPath];
     
-    int arrayIndex = indexPath.section*3+indexPath.row;
+    long arrayIndex = indexPath.section*3+indexPath.row;
     
     if(photosArray!=nil && [photosArray count]>0) {
         
         
         [cell.photoView sd_setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:arrayIndex] photoURL]]
-                                                  placeholderImage:nil
-                                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
-                                                             
-                                                             [cell.loader stopAnimating];
-                                                             
-                                                             if(arrayIndex == [photosArray count]-1)
-                                                             {
-                                                                 [self addTimerLabel];
-                                                             }
-                                                             
-                                                         }];
-
-    
+                          placeholderImage:nil
+                                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
+                                     
+                                     [cell.loader stopAnimating];
+                                     
+                                     if(arrayIndex == [photosArray count]-1)
+                                     {
+                                         [self addTimerLabel];
+                                     }
+                                     
+                                 }];
+        
+        
     }
     return cell;
 }
@@ -333,19 +335,19 @@
     
     if(buttonTag==1) {
         
-            [self setUpLoaderView];
-            CGAffineTransform translate= CGAffineTransformMakeTranslation(startView.frame.origin.x, 480.0f + (startView.frame.size.height/2));
-            [UIView animateWithDuration:0.5
-                             animations:^{
-                                 
-                                 startView.transform = translate;
-                                 startView.alpha =0;
-                             }
-                             completion:^(BOOL finished) {
-                                 [startView removeFromSuperview];
-                                 
-                                 
-                             }];
+        [self setUpLoaderView];
+        CGAffineTransform translate= CGAffineTransformMakeTranslation(startView.frame.origin.x, 480.0f + (startView.frame.size.height/2));
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             
+                             startView.transform = translate;
+                             startView.alpha =0;
+                         }
+                         completion:^(BOOL finished) {
+                             [startView removeFromSuperview];
+                             
+                             
+                         }];
         
         [loaderView.activityIndicator startAnimating];
     }
@@ -362,7 +364,7 @@
                          }
                          completion:^(BOOL finished) {
                              [gameOverView removeFromSuperview];
-                            [self setInitialParams];
+                             [self setInitialParams];
                              
                          }];
         
@@ -370,20 +372,20 @@
         
     }
     else {
-    
-            loaderView.ErrorLabel.alpha = 0;
-            [loaderView.activityIndicator startAnimating];
-        }
+        
+        loaderView.ErrorLabel.alpha = 0;
+        [loaderView.activityIndicator startAnimating];
+    }
     
     NSString *urlPath = @"/services/feeds/photos_public.gne";
     NSDictionary *queryParams = @{@"format" : @"json",
                                   @"lang": @"en-us",
                                   @"nojsoncallback":@"1"};
-                                  //@"api_key":@"5475b6fd9172724f2dc72e76d7484369"};
+    //@"api_key":@"5475b6fd9172724f2dc72e76d7484369"};
     
     
     [objectManager getObjectsFromURLPath:urlPath withParams:queryParams];
-
+    
     
 }
 
@@ -392,7 +394,7 @@
     photosArray = [[NSMutableArray alloc] init];
     NSString *jsonString = [NSString stringWithUTF8String:[responseObject bytes]];
     NSLog(@"%@",jsonString);
-
+    
     jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\'" withString:@"'"];
     
     NSData* bytes = [jsonString dataUsingEncoding:NSUTF16StringEncoding];
@@ -402,44 +404,43 @@
     
     if(jsonDataObject!=nil) {
         
-            CGAffineTransform translate= CGAffineTransformMakeTranslation(loaderView.frame.origin.x, 480.0f + (loaderView.frame.size.height/2));
+        CGAffineTransform translate= CGAffineTransformMakeTranslation(loaderView.frame.origin.x, 480.0f + (loaderView.frame.size.height/2));
+        
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             
+                             loaderView.transform = translate;
+                             //loaderView.alpha =0;
+                         }
+                         completion:^(BOOL finished) {
+                             [loaderView removeFromSuperview];
+                             [self addCollectionView];
+                             
+                         }];
+        
+        NSLog(@"%@",jsonParsingError);
+        NSArray *photosJsonArray = [jsonDataObject valueForKeyPath:@"items"];
+        int i=0;
+        
+        for(NSDictionary * photoJSON in photosJsonArray)
+        {
             
-            [UIView animateWithDuration:0.5
-                             animations:^{
-                                 
-                                 loaderView.transform = translate;
-                                 //loaderView.alpha =0;
-                             }
-                             completion:^(BOOL finished) {
-                                 [loaderView removeFromSuperview];
-                                 [self addCollectionView];
-                                 [self addImageView];
-
-                             }];
             
-            NSLog(@"%@",jsonParsingError);
-            NSArray *photosJsonArray = [jsonDataObject valueForKeyPath:@"items"];
-            int i=0;
-            
-            for(NSDictionary * photoJSON in photosJsonArray)
-            {
+            if(i<9) {
                 
+                PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
                 
-                if(i<9) {
-                    
-                    PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
-                    
-                    [photosArray addObject:photobj];
-                    
-                    i++;
-                }
-                else {
-                    
-                    break;
-                }
+                [photosArray addObject:photobj];
                 
+                i++;
             }
-
+            else {
+                
+                break;
+            }
+            
+        }
+        
         
         //[photoGrid reloadData];
     }
@@ -449,7 +450,7 @@
         
         [UIView animateWithDuration:1.f
                          animations:^{
-
+                             
                              loaderView.ErrorLabel.alpha = 1;
                              loaderView.reloadButton.alpha = 1;
                              
@@ -459,7 +460,7 @@
                          }];
         
     }
-
+    
 }
 
 
