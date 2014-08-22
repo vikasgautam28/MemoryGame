@@ -14,7 +14,7 @@
 		1D1097E519A4411F0082185C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1097E419A4411F0082185C /* main.m */; };
 		1D1097E919A4411F0082185C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1097E819A4411F0082185C /* AppDelegate.m */; };
 		1D1097EC19A4411F0082185C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D1097EA19A4411F0082185C /* Main.storyboard */; };
-		1D1097EF19A4411F0082185C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1097EE19A4411F0082185C /* ViewController.m */; };
+		1D1097EF19A4411F0082185C /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D1097EE19A4411F0082185C /* GameViewController.m */; };
 		1D1097F119A4411F0082185C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D1097F019A4411F0082185C /* Images.xcassets */; };
 		1D1097F819A4411F0082185C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D1097F719A4411F0082185C /* XCTest.framework */; };
 		1D1097F919A4411F0082185C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D1097D819A4411F0082185C /* Foundation.framework */; };
@@ -26,8 +26,11 @@
 		1D10981619A464890082185C /* GameObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D10981519A464890082185C /* GameObjectManager.m */; };
 		1D10983719A4C5B10082185C /* PhotoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D10983619A4C5B10082185C /* PhotoData.m */; };
 		1DA251B219A62DA900B24F90 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA251B119A62DA900B24F90 /* AudioToolbox.framework */; };
+		1DA251B519A6531700B24F90 /* GameLoaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA251B419A6531700B24F90 /* GameLoaderView.m */; };
+		1DA251B719A68E1000B24F90 /* Game_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251B619A68E1000B24F90 /* Game_icon.png */; };
+		1DA251BA19A6937700B24F90 /* GameStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA251B919A6937700B24F90 /* GameStartView.m */; };
+		1DA251C019A6A39900B24F90 /* GameOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA251BF19A6A39900B24F90 /* GameOverView.m */; };
 		9214173619A528DA00EA5D19 /* download.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9214173519A528DA00EA5D19 /* download.jpeg */; };
-		9214173919A5329000EA5D19 /* DraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9214173819A5329000EA5D19 /* DraggableImageView.m */; };
 		DE10C18EB6D94DE483A5428F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8318C453AEC745CE805CDD69 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +56,8 @@
 		1D1097E719A4411F0082185C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D1097E819A4411F0082185C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D1097EB19A4411F0082185C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1D1097ED19A4411F0082185C /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1D1097EE19A4411F0082185C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1D1097ED19A4411F0082185C /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		1D1097EE19A4411F0082185C /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		1D1097F019A4411F0082185C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		1D1097F619A4411F0082185C /* MemoryGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MemoryGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D1097F719A4411F0082185C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -69,10 +72,15 @@
 		1D10983519A4C5B10082185C /* PhotoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoData.h; sourceTree = "<group>"; };
 		1D10983619A4C5B10082185C /* PhotoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoData.m; sourceTree = "<group>"; };
 		1DA251B119A62DA900B24F90 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		1DA251B319A6531700B24F90 /* GameLoaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLoaderView.h; sourceTree = "<group>"; };
+		1DA251B419A6531700B24F90 /* GameLoaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLoaderView.m; sourceTree = "<group>"; };
+		1DA251B619A68E1000B24F90 /* Game_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Game_icon.png; sourceTree = "<group>"; };
+		1DA251B819A6937700B24F90 /* GameStartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStartView.h; sourceTree = "<group>"; };
+		1DA251B919A6937700B24F90 /* GameStartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStartView.m; sourceTree = "<group>"; };
+		1DA251BE19A6A39900B24F90 /* GameOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverView.h; sourceTree = "<group>"; };
+		1DA251BF19A6A39900B24F90 /* GameOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverView.m; sourceTree = "<group>"; };
 		8318C453AEC745CE805CDD69 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9214173519A528DA00EA5D19 /* download.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = download.jpeg; sourceTree = "<group>"; };
-		9214173719A5329000EA5D19 /* DraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableImageView.h; sourceTree = "<group>"; };
-		9214173819A5329000EA5D19 /* DraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableImageView.m; sourceTree = "<group>"; };
 		B6DBA18D12614BEEB8D51C94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -156,6 +164,7 @@
 		1D1097DF19A4411F0082185C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1DA251B619A68E1000B24F90 /* Game_icon.png */,
 				1D1097E019A4411F0082185C /* MemoryGame-Info.plist */,
 				1D1097E119A4411F0082185C /* InfoPlist.strings */,
 				1D1097E419A4411F0082185C /* main.m */,
@@ -187,10 +196,14 @@
 			children = (
 				1D10980D19A447150082185C /* photoCollectionCell.h */,
 				1D10980E19A447150082185C /* photoCollectionCell.m */,
-				1D1097ED19A4411F0082185C /* ViewController.h */,
-				1D1097EE19A4411F0082185C /* ViewController.m */,
-				9214173719A5329000EA5D19 /* DraggableImageView.h */,
-				9214173819A5329000EA5D19 /* DraggableImageView.m */,
+				1D1097ED19A4411F0082185C /* GameViewController.h */,
+				1D1097EE19A4411F0082185C /* GameViewController.m */,
+				1DA251B319A6531700B24F90 /* GameLoaderView.h */,
+				1DA251B419A6531700B24F90 /* GameLoaderView.m */,
+				1DA251B819A6937700B24F90 /* GameStartView.h */,
+				1DA251B919A6937700B24F90 /* GameStartView.m */,
+				1DA251BE19A6A39900B24F90 /* GameOverView.h */,
+				1DA251BF19A6A39900B24F90 /* GameOverView.m */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -283,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D1097F119A4411F0082185C /* Images.xcassets in Resources */,
+				1DA251B719A68E1000B24F90 /* Game_icon.png in Resources */,
 				1D1097E319A4411F0082185C /* InfoPlist.strings in Resources */,
 				9214173619A528DA00EA5D19 /* download.jpeg in Resources */,
 				1D10981119A463FC0082185C /* Podfile in Resources */,
@@ -338,13 +352,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9214173919A5329000EA5D19 /* DraggableImageView.m in Sources */,
+				1DA251B519A6531700B24F90 /* GameLoaderView.m in Sources */,
 				1D10983719A4C5B10082185C /* PhotoData.m in Sources */,
-				1D1097EF19A4411F0082185C /* ViewController.m in Sources */,
+				1DA251BA19A6937700B24F90 /* GameStartView.m in Sources */,
+				1D1097EF19A4411F0082185C /* GameViewController.m in Sources */,
 				1D1097E919A4411F0082185C /* AppDelegate.m in Sources */,
 				1D10980F19A447150082185C /* photoCollectionCell.m in Sources */,
 				1D10981619A464890082185C /* GameObjectManager.m in Sources */,
 				1D1097E519A4411F0082185C /* main.m in Sources */,
+				1DA251C019A6A39900B24F90 /* GameOverView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

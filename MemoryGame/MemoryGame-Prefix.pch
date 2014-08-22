@@ -14,3 +14,10 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
 #endif
+
+#define SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
+#define SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
+
+#define THEME_COLOR [UIColor colorWithRed:52/255.0 green:152/255.0 blue:219/255.0 alpha:1.0]
+
+#define HIGH_SCORE @"highScore"

@@ -6,22 +6,28 @@
 //  Copyright (c) 2014 MyCompany. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "GameViewController.h"
 #import "photoCollectionCell.h"
 #import "GameObjectManager.h"
 #import "PhotoData.h"
-#import "DraggableImageView.h"
+#import "GameLoaderView.h"
+#import "GameStartView.h"
+#import "GameOverView.h"
+#import <POP.h>
 #import <SDWebImage/UIImageView+WebCache.h>
 #import <AudioToolbox/AudioToolbox.h>
-@interface ViewController () {
+@interface GameViewController () {
     
     int seconds;
     int imagesToBePlaced;
     int randomNum;
+    int score;
     //CGRect randomImageActualframe;
     
 }
 
+@property (nonatomic, strong) GameOverView *gameOverView;
+@property (nonatomic, strong) UILabel *scoreLabel;
 @property (nonatomic, strong) UILabel *timerLabel;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSMutableArray *photosArray;
@@ -29,11 +35,16 @@
 @property (nonatomic, strong) UICollectionView *photoGrid;
 @property (nonatomic, strong) UIImageView *randomImage;
 @property (nonatomic, strong) NSMutableArray *imagesDisplayed;
+@property (nonatomic, strong) GameLoaderView *loaderView;
+@property (nonatomic, strong) GameStartView *startView;
+
 
 @end
 
-@implementation ViewController
+@implementation GameViewController
 
+@synthesize startView;
+@synthesize loaderView;
 @synthesize imagesDisplayed;
 @synthesize randomImage;
 @synthesize timerLabel;
@@ -41,6 +52,8 @@
 @synthesize photosArray;
 @synthesize photoGrid;
 @synthesize objectManager;
+@synthesize scoreLabel;
+@synthesize gameOverView;
 
 - (void)viewDidLoad
 {
@@ -48,33 +61,57 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [self setInitialParams];
     [objectManager setDelegate:self];
-    [self loadData];
+    //[self loadData];
     
-    [self addCollectionView];
-    [self addImageView];
+    [self setUpStartView];
+    
+    
 	// Do any additional setup after loading the view, typically from a nib.
+}
+
+
+-(void) setUpStartView {
+    startView = [[GameStartView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.view addSubview:startView];
+    startView.playButton.tag=1;
+    [startView.playButton addTarget:self action:@selector(loadData:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+-(void) setUpLoaderView {
+    
+    loaderView  = [[GameLoaderView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.view addSubview:loaderView];
+    [loaderView.reloadButton addTarget:self action:@selector(loadData:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 -(void) setInitialParams {
     objectManager = [GameObjectManager getManager];
+    score = 0;
     seconds = 15;
     imagesToBePlaced = 9;
-    
+    photosArray = [[NSMutableArray alloc] init];
     imagesDisplayed = [[NSMutableArray alloc] init];
     
     for(int i=0;i<9;i++) {
         [imagesDisplayed addObject:[NSNumber numberWithInt:0]];
     }
     
+    [photoGrid reloadData];
+    [scoreLabel removeFromSuperview];
+    [randomImage removeFromSuperview];
+    scoreLabel=nil;
+    randomImage=nil;
+    
 }
 
 -(void) addTimerLabel {
     
-    timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(120, 30, 200, 50)];
+    timerLabel = [[UILabel alloc] initWithFrame:CGRectMake(110, 25, 200, 50)];
     
-    [timerLabel setFont:[UIFont fontWithName:@"helvetica" size:30]];
+    [timerLabel setFont:[UIFont fontWithName:@"helvetica" size:40]];
     timerLabel.text = [NSString stringWithFormat:@"00:%i", seconds];
-    timerLabel.textColor = [UIColor redColor];
+    timerLabel.textColor = THEME_COLOR;
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0f
                                              target:self
                                            selector:@selector(subtractTime)
@@ -99,12 +136,25 @@
     }
 
     if (seconds == 0) {
-        timerLabel.text = @"START!!";
+        [timerLabel removeFromSuperview];
+        [self addScoreLabel];
         [self invertImages];
         [timer invalidate];
         
         [self SelectRandomImage];
     }
+}
+
+-(void) addScoreLabel {
+    
+    scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(70, 25, 250, 50)];
+    
+    [scoreLabel setFont:[UIFont fontWithName:@"helvetica" size:40]];
+    scoreLabel.text = [NSString stringWithFormat:@"Score : %i", score];
+    scoreLabel.textColor = THEME_COLOR;
+    
+    [self.view addSubview:scoreLabel];
+
 }
 
 -(void) SelectRandomImage {
@@ -130,6 +180,21 @@
         
     }
     else {
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%i", score] forKey:HIGH_SCORE];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        gameOverView = [[GameOverView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+        gameOverView.replayButton.tag = 2;
+        [gameOverView.replayButton addTarget:self action:@selector(loadData:) forControlEvents:UIControlEventTouchUpInside];
+        
+        NSString *scoreText = scoreLabel.text;
+        
+        gameOverView.scoreLabel.text=scoreText;
+        [gameOverView.scoreLabel sizeToFit];
+        [self.view addSubview:gameOverView];
+
         
         //
     }
@@ -177,6 +242,11 @@
     
     if(index == randomNum)
     {
+        
+        score+=100;
+        
+        scoreLabel.text=[NSString stringWithFormat:@"Score : %i",score];
+        
         id cell =[photoGrid cellForItemAtIndexPath:indexPath];
         
         
@@ -193,7 +263,12 @@
         
     } else {
         
+        score-=50;
+        
+        scoreLabel.text=[NSString stringWithFormat:@"Score : %i",score];
+
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        [self shakeImage];
     }
 }
 
@@ -251,60 +326,159 @@
 }
 
 
--(void) loadData {
+
+-(void) loadData:(id) sender {
+    
+    NSInteger buttonTag = ((UIButton*)sender).tag;
+    
+    if(buttonTag==1) {
+        
+            [self setUpLoaderView];
+            CGAffineTransform translate= CGAffineTransformMakeTranslation(startView.frame.origin.x, 480.0f + (startView.frame.size.height/2));
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 
+                                 startView.transform = translate;
+                                 startView.alpha =0;
+                             }
+                             completion:^(BOOL finished) {
+                                 [startView removeFromSuperview];
+                                 
+                                 
+                             }];
+        
+        [loaderView.activityIndicator startAnimating];
+    }
+    
+    else if (buttonTag==2)
+    {
+        [self setUpLoaderView];
+        CGAffineTransform translate= CGAffineTransformMakeTranslation(gameOverView.frame.origin.x, 480.0f + (gameOverView.frame.size.height/2));
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             
+                             gameOverView.transform = translate;
+                             //gameOverView.alpha =0;
+                         }
+                         completion:^(BOOL finished) {
+                             [gameOverView removeFromSuperview];
+                            [self setInitialParams];
+                             
+                         }];
+        
+        [loaderView.activityIndicator startAnimating];
+        
+    }
+    else {
+    
+            loaderView.ErrorLabel.alpha = 0;
+            [loaderView.activityIndicator startAnimating];
+        }
     
     NSString *urlPath = @"/services/feeds/photos_public.gne";
     NSDictionary *queryParams = @{@"format" : @"json",
-                                  @"lang": @"en-us"};
-    [objectManager getObjectForClass:[PhotoData class] fromURLPath:urlPath withParams:queryParams];
+                                  @"lang": @"en-us",
+                                  @"nojsoncallback":@"1"};
+                                  //@"api_key":@"5475b6fd9172724f2dc72e76d7484369"};
+    
+    
+    [objectManager getObjectsFromURLPath:urlPath withParams:queryParams];
+
     
 }
 
--(void) didLoadObjectsForClass:(Class)klass fromURLPath:(NSString *)URLPath fetchedResponseObject:(id)responseObject
+-(void) didLoadObjectsfromURLPath:(NSString*) URLPath fetchedResponseObject:(id) responseObject;
 {
     photosArray = [[NSMutableArray alloc] init];
     NSString *jsonString = [NSString stringWithUTF8String:[responseObject bytes]];
-    NSString *trimmedString = [jsonString substringWithRange:NSMakeRange(15, jsonString.length-16)];
     NSLog(@"%@",jsonString);
-    NSLog(@"==========================================");
-    NSLog(@"%@",trimmedString);
-    NSData* bytes = [trimmedString dataUsingEncoding:NSUTF16StringEncoding];
+
+    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\'" withString:@"'"];
+    
+    NSData* bytes = [jsonString dataUsingEncoding:NSUTF16StringEncoding];
     NSError *jsonParsingError = nil;
     NSDictionary * jsonDataObject = [NSJSONSerialization JSONObjectWithData:bytes options:NSJSONReadingAllowFragments error:&jsonParsingError];
     
     
-    
-    
-        NSLog(@"%@",jsonParsingError);
+    if(jsonDataObject!=nil) {
         
-        NSArray *photosJsonArray = [jsonDataObject valueForKeyPath:@"items"];
-        
-        int i=0;
-        
-        for(NSDictionary * photoJSON in photosJsonArray)
-        {
+            CGAffineTransform translate= CGAffineTransformMakeTranslation(loaderView.frame.origin.x, 480.0f + (loaderView.frame.size.height/2));
             
-            
-            if(i<9) {
-                
-                PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
-                
-                [photosArray addObject:photobj];
-                
-                i++;
-            }
-            else {
-                
-                break;
-            }
-            
-        }
+            [UIView animateWithDuration:0.5
+                             animations:^{
+                                 
+                                 loaderView.transform = translate;
+                                 //loaderView.alpha =0;
+                             }
+                             completion:^(BOOL finished) {
+                                 [loaderView removeFromSuperview];
+                                 [self addCollectionView];
+                                 [self addImageView];
 
-    
-    [photoGrid reloadData];
+                             }];
+            
+            NSLog(@"%@",jsonParsingError);
+            NSArray *photosJsonArray = [jsonDataObject valueForKeyPath:@"items"];
+            int i=0;
+            
+            for(NSDictionary * photoJSON in photosJsonArray)
+            {
+                
+                
+                if(i<9) {
+                    
+                    PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
+                    
+                    [photosArray addObject:photobj];
+                    
+                    i++;
+                }
+                else {
+                    
+                    break;
+                }
+                
+            }
+
+        
+        //[photoGrid reloadData];
+    }
+    else {
+        
+        [loaderView.activityIndicator stopAnimating];
+        
+        [UIView animateWithDuration:1.f
+                         animations:^{
+
+                             loaderView.ErrorLabel.alpha = 1;
+                             loaderView.reloadButton.alpha = 1;
+                             
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }];
+        
+    }
+
 }
 
 
+#pragma animations
+
+- (void)shakeImage
+{
+    POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
+    
+    positionAnimation.fromValue = @(100);
+    positionAnimation.toValue = @(150);
+    
+    positionAnimation.velocity = @3000;
+    positionAnimation.springBounciness = 15;
+    [positionAnimation setCompletionBlock:^(POPAnimation *animation, BOOL finished) {
+        //self.button.userInteractionEnabled = YES;
+    }];
+    [randomImage.layer pop_addAnimation:positionAnimation forKey:@"positionAnimation"];
+}
 
 - (void)didReceiveMemoryWarning
 {

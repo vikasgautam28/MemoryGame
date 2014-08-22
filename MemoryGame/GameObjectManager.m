@@ -35,7 +35,7 @@ static GameObjectManager * objectManager=nil;
     delegate = newDelegate;
 }
 
--(void) getObjectForClass:(Class)Klass fromURLPath:(NSString *)URLPath withParams:(NSDictionary*) params {
+-(void) getObjectsFromURLPath:(NSString *)URLPath withParams:(NSDictionary*) params {
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:BASEURL]];
     
@@ -50,13 +50,19 @@ static GameObjectManager * objectManager=nil;
     [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        if([delegate respondsToSelector:@selector(didLoadObjectsForClass:fromURLPath:fetchedResponseObject:)]) {
+        if([delegate respondsToSelector:@selector(didLoadObjectsfromURLPath:fetchedResponseObject:)]) {
             
-         [delegate didLoadObjectsForClass:Klass fromURLPath:URLPath fetchedResponseObject:responseObject];
+         [delegate didLoadObjectsfromURLPath:URLPath fetchedResponseObject:responseObject];
             
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        if([delegate respondsToSelector:@selector(didFailToLoadObjectsfromURLPath:fetchedResponseObject:)]) {
+            
+            [delegate didFailToLoadObjectsfromURLPath:URLPath fetchedResponseObject:error];
+        }
+        
         NSLog(@"Error: %@", error);
     }];
     [operation start];

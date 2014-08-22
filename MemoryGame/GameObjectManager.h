@@ -12,7 +12,9 @@
 
 @required
 
--(void) didLoadObjectsForClass:(Class) klass fromURLPath:(NSString*) URLPath fetchedResponseObject:(id) responseObject;
+-(void) didLoadObjectsfromURLPath:(NSString*) URLPath fetchedResponseObject:(id) responseObject;
+
+-(void) didFailToLoadObjectsfromURLPath:(NSString *)URLPath fetchedResponseObject:(id)responseObject;
 
 @end
 
@@ -25,7 +27,7 @@
 
 - (void) setDelegate:(id)newDelegate;
 
--(void) getObjectForClass:(Class) Klass fromURLPath:(NSString *) URLPath withParams:(NSDictionary*) params;
+-(void) getObjectsFromURLPath:(NSString *)URLPath withParams:(NSDictionary*) params;
 
 
 
