@@ -30,6 +30,13 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Game_icon.png</string>
+		<string>Game_icon@2x.png</string>
+	</array>
+	<key>LSApplicationCategoryType</key>
+	<string></string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

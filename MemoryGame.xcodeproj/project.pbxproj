@@ -155,6 +155,7 @@
 		1D1097DE19A4411F0082185C /* MemoryGame */ = {
 			isa = PBXGroup;
 			children = (
+				1DA251C919A74D9B00B24F90 /* screenshots */,
 				1D10981319A4646F0082185C /* Model */,
 				1D10981219A4645E0082185C /* GUI */,
 				1D1097E719A4411F0082185C /* AppDelegate.h */,
@@ -172,10 +173,6 @@
 		1D1097DF19A4411F0082185C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				1DA251C119A7405800B24F90 /* 0.PNG */,
-				1DA251C219A7405800B24F90 /* 1.PNG */,
-				1DA251C319A7405800B24F90 /* 2.PNG */,
-				1DA251C419A7405800B24F90 /* 3.PNG */,
 				1DA251B619A68E1000B24F90 /* Game_icon.png */,
 				1D1097E019A4411F0082185C /* MemoryGame-Info.plist */,
 				1D1097E119A4411F0082185C /* InfoPlist.strings */,
@@ -227,6 +224,17 @@
 				1D10983619A4C5B10082185C /* PhotoData.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		1DA251C919A74D9B00B24F90 /* screenshots */ = {
+			isa = PBXGroup;
+			children = (
+				1DA251C119A7405800B24F90 /* 0.PNG */,
+				1DA251C219A7405800B24F90 /* 1.PNG */,
+				1DA251C319A7405800B24F90 /* 2.PNG */,
+				1DA251C419A7405800B24F90 /* 3.PNG */,
+			);
+			name = screenshots;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

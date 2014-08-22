@@ -22,7 +22,7 @@
         // Initialization code
         
         [self setBackgroundColor:[UIColor whiteColor]];
-        gameOverLabel = [[UILabel alloc] initWithFrame:CGRectMake(50,70, 320, 50)];
+        gameOverLabel = [[UILabel alloc] initWithFrame:CGRectMake(60,70, 320, 50)];
         [gameOverLabel setFont:[UIFont fontWithName:@"helvetica" size:40]];
         [gameOverLabel setText:@"Game Over"];
         [gameOverLabel setTextColor:[UIColor redColor]];
@@ -35,7 +35,7 @@
         [scoreLabel setTextColor:THEME_COLOR];
         
         
-        replayButton = [[UIButton alloc] initWithFrame:CGRectMake(50, 300, 200, 70)];
+        replayButton = [[UIButton alloc] initWithFrame:CGRectMake(60, 300, 200, 70)];
         [replayButton setBackgroundColor:THEME_COLOR];
         replayButton.titleLabel.font = [UIFont fontWithName:@"helvetica-bold" size:30];
         [replayButton setTitle:@"Play Again" forState:UIControlStateNormal];
