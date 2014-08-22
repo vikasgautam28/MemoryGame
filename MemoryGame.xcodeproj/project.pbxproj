@@ -30,6 +30,10 @@
 		1DA251B719A68E1000B24F90 /* Game_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251B619A68E1000B24F90 /* Game_icon.png */; };
 		1DA251BA19A6937700B24F90 /* GameStartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA251B919A6937700B24F90 /* GameStartView.m */; };
 		1DA251C019A6A39900B24F90 /* GameOverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DA251BF19A6A39900B24F90 /* GameOverView.m */; };
+		1DA251C519A7405800B24F90 /* 0.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251C119A7405800B24F90 /* 0.PNG */; };
+		1DA251C619A7405800B24F90 /* 1.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251C219A7405800B24F90 /* 1.PNG */; };
+		1DA251C719A7405800B24F90 /* 2.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251C319A7405800B24F90 /* 2.PNG */; };
+		1DA251C819A7405800B24F90 /* 3.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251C419A7405800B24F90 /* 3.PNG */; };
 		9214173619A528DA00EA5D19 /* download.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9214173519A528DA00EA5D19 /* download.jpeg */; };
 		DE10C18EB6D94DE483A5428F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8318C453AEC745CE805CDD69 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -79,6 +83,10 @@
 		1DA251B919A6937700B24F90 /* GameStartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStartView.m; sourceTree = "<group>"; };
 		1DA251BE19A6A39900B24F90 /* GameOverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverView.h; sourceTree = "<group>"; };
 		1DA251BF19A6A39900B24F90 /* GameOverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverView.m; sourceTree = "<group>"; };
+		1DA251C119A7405800B24F90 /* 0.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.PNG; sourceTree = "<group>"; };
+		1DA251C219A7405800B24F90 /* 1.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.PNG; sourceTree = "<group>"; };
+		1DA251C319A7405800B24F90 /* 2.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.PNG; sourceTree = "<group>"; };
+		1DA251C419A7405800B24F90 /* 3.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.PNG; sourceTree = "<group>"; };
 		8318C453AEC745CE805CDD69 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		9214173519A528DA00EA5D19 /* download.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = download.jpeg; sourceTree = "<group>"; };
 		B6DBA18D12614BEEB8D51C94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -164,6 +172,10 @@
 		1D1097DF19A4411F0082185C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				1DA251C119A7405800B24F90 /* 0.PNG */,
+				1DA251C219A7405800B24F90 /* 1.PNG */,
+				1DA251C319A7405800B24F90 /* 2.PNG */,
+				1DA251C419A7405800B24F90 /* 3.PNG */,
 				1DA251B619A68E1000B24F90 /* Game_icon.png */,
 				1D1097E019A4411F0082185C /* MemoryGame-Info.plist */,
 				1D1097E119A4411F0082185C /* InfoPlist.strings */,
@@ -296,11 +308,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D1097F119A4411F0082185C /* Images.xcassets in Resources */,
+				1DA251C619A7405800B24F90 /* 1.PNG in Resources */,
 				1DA251B719A68E1000B24F90 /* Game_icon.png in Resources */,
+				1DA251C819A7405800B24F90 /* 3.PNG in Resources */,
+				1DA251C719A7405800B24F90 /* 2.PNG in Resources */,
 				1D1097E319A4411F0082185C /* InfoPlist.strings in Resources */,
 				9214173619A528DA00EA5D19 /* download.jpeg in Resources */,
 				1D10981119A463FC0082185C /* Podfile in Resources */,
 				1D1097EC19A4411F0082185C /* Main.storyboard in Resources */,
+				1DA251C519A7405800B24F90 /* 0.PNG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
