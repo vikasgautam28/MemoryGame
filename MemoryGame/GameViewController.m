@@ -59,9 +59,9 @@
 {
     [super viewDidLoad];
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    objectManager = [GameObjectManager getManager];
     [self setInitialParams];
     [objectManager setDelegate:self];
-    //[self loadData];
     
     [self setUpStartView];
     
@@ -86,7 +86,7 @@
 }
 
 -(void) setInitialParams {
-    objectManager = [GameObjectManager getManager];
+    
     score = 0;
     seconds = 15;
     imagesToBePlaced = 9;
@@ -183,8 +183,24 @@
     }
     else {
         
-        [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%i", score] forKey:HIGH_SCORE];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        
+        if([prefs objectForKey:HIGH_SCORE]==nil) {
+        
+            [prefs setObject:[NSString stringWithFormat:@"%i", score] forKey:HIGH_SCORE];
+            [prefs synchronize];
+        }
+        else {
+            
+            int highScore = [[prefs objectForKey:HIGH_SCORE] intValue];
+            
+            if(highScore<score) {
+                
+                [[NSUserDefaults standardUserDefaults] setObject:[NSString stringWithFormat:@"%i", score] forKey:HIGH_SCORE];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
+        
         
         gameOverView = [[GameOverView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         
@@ -198,7 +214,6 @@
         [self.view addSubview:gameOverView];
         
         
-        //
     }
     
 }
@@ -211,7 +226,7 @@
     for(NSIndexPath * indexPath in visibleCellIndexPaths)
     {
         id cell =[photoGrid cellForItemAtIndexPath:indexPath];
-        ((photoCollectionCell*)cell).photoView.image = [UIImage imageNamed:@"download.jpeg"];
+        ((photoCollectionCell*)cell).photoView.image = [UIImage imageNamed:@"placeholder.jpg"];
     }
 }
 
@@ -232,7 +247,7 @@
 -(void) addImageView {
     
     randomImage  = [[UIImageView alloc] initWithFrame:CGRectMake(100, 420, 120, 120)];
-    randomImage.image= [UIImage imageNamed:@"download.jpeg"];
+    //randomImage.image= [UIImage imageNamed:@"download.jpeg"];
     [self.view addSubview:randomImage];
     
     
@@ -242,35 +257,37 @@
     
     long index = indexPath.section*3+indexPath.row;
     
-    if(index == randomNum)
-    {
-        
-        score+=100;
-        
-        scoreLabel.text=[NSString stringWithFormat:@"Score : %i",score];
-        
-        id cell =[photoGrid cellForItemAtIndexPath:indexPath];
-        
-        
-        [((photoCollectionCell*)cell).photoView sd_setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:index] photoURL]]
-                                                  placeholderImage:nil
-                                                         completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
-                                                             
-                                                         }];
-        
-        
-        [imagesDisplayed setObject:[NSNumber numberWithInt:1] atIndexedSubscript:index];
-        [self SelectRandomImage];
-        
-        
-    } else {
-        
-        score-=50;
-        
-        scoreLabel.text=[NSString stringWithFormat:@"Score : %i",score];
-        
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        [self shakeImage];
+    if(randomImage!=nil) {
+        if(index == randomNum)
+        {
+            
+            score+=100;
+            
+            scoreLabel.text=[NSString stringWithFormat:@"Score : %i",score];
+            
+            id cell =[photoGrid cellForItemAtIndexPath:indexPath];
+            
+            
+            [((photoCollectionCell*)cell).photoView sd_setImageWithURL:[NSURL URLWithString:[(PhotoData*)[photosArray objectAtIndex:index] photoURL]]
+                                                      placeholderImage:nil
+                                                             completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
+                                                                 
+                                                             }];
+            
+            
+            [imagesDisplayed setObject:[NSNumber numberWithInt:1] atIndexedSubscript:index];
+            [self SelectRandomImage];
+            
+            
+        } else {
+            
+            score-=50;
+            
+            scoreLabel.text=[NSString stringWithFormat:@"Score : %i",score];
+            
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            [self shakeImage];
+        }
     }
 }
 
@@ -315,14 +332,13 @@
 
 #pragma mark – UICollectionViewDelegateFlowLayout
 
-// 1
+
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    CGSize retval = CGSizeMake(80,80);
+    CGSize retval = CGSizeMake(75,75);
     return retval;
 }
 
-// 3
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(10, 5, 10, 5);
 }
@@ -355,6 +371,7 @@
     else if (buttonTag==2)
     {
         [self setUpLoaderView];
+        [photoGrid removeFromSuperview];
         CGAffineTransform translate= CGAffineTransformMakeTranslation(gameOverView.frame.origin.x, 480.0f + (gameOverView.frame.size.height/2));
         [UIView animateWithDuration:0.5
                          animations:^{
@@ -395,14 +412,14 @@
     NSString *jsonString = [NSString stringWithUTF8String:[responseObject bytes]];
     NSLog(@"%@",jsonString);
     
-    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\'" withString:@"'"];
+    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\'" withString:@"'"]; //Cleaning the received json, a bug in the API which replaces ' by \' .
     
     NSData* bytes = [jsonString dataUsingEncoding:NSUTF16StringEncoding];
     NSError *jsonParsingError = nil;
     NSDictionary * jsonDataObject = [NSJSONSerialization JSONObjectWithData:bytes options:NSJSONReadingAllowFragments error:&jsonParsingError];
     
     
-    if(jsonDataObject!=nil) {
+    if(jsonParsingError==nil) {
         
         CGAffineTransform translate= CGAffineTransformMakeTranslation(loaderView.frame.origin.x, 480.0f + (loaderView.frame.size.height/2));
         
@@ -410,7 +427,6 @@
                          animations:^{
                              
                              loaderView.transform = translate;
-                             //loaderView.alpha =0;
                          }
                          completion:^(BOOL finished) {
                              [loaderView removeFromSuperview];
@@ -422,7 +438,7 @@
         NSArray *photosJsonArray = [jsonDataObject valueForKeyPath:@"items"];
         int i=0;
         
-        for(NSDictionary * photoJSON in photosJsonArray)
+        for(NSDictionary * photoJSON in photosJsonArray) //Get 9 photos from the received json dictionary
         {
             
             
@@ -442,7 +458,6 @@
         }
         
         
-        //[photoGrid reloadData];
     }
     else {
         
@@ -463,6 +478,25 @@
     
 }
 
+
+-(void)didFailToLoadObjectsfromURLPath:(NSString*)URLPath fetchedResponseObject:(id)error{
+   
+    
+    [loaderView.activityIndicator stopAnimating];
+    
+    [UIView animateWithDuration:1.f
+                     animations:^{
+                         
+                         loaderView.ErrorLabel.alpha = 1;
+                         loaderView.reloadButton.alpha = 1;
+                         
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }];
+
+   
+}
 
 #pragma animations
 

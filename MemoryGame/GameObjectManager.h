@@ -14,7 +14,7 @@
 
 -(void) didLoadObjectsfromURLPath:(NSString*) URLPath fetchedResponseObject:(id) responseObject;
 
--(void) didFailToLoadObjectsfromURLPath:(NSString *)URLPath fetchedResponseObject:(id)responseObject;
+-(void) didFailToLoadObjectsfromURLPath:(NSString*)URLPath fetchedResponseObject:(id)error;
 
 @end
 

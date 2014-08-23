@@ -13,7 +13,7 @@
 @synthesize gameOverLabel;
 @synthesize replayButton;
 @synthesize scoreLabel;
-
+@synthesize highScoreLabel;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -28,12 +28,17 @@
         [gameOverLabel setTextColor:[UIColor redColor]];
         [gameOverLabel sizeToFit];
         
+        highScoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(10,150, 320, 70)];
+        [highScoreLabel setFont:[UIFont fontWithName:@"helvetica" size:40]];
+        [highScoreLabel setText:[NSString stringWithFormat:@"High Score : %@",[[NSUserDefaults standardUserDefaults] objectForKey:HIGH_SCORE]]];
+        [highScoreLabel setTextColor:THEME_COLOR];
+        //[highScoreLabel adjustsFontSizeToFitWidth];
         
-        scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(60,150, 250, 50)];
+        scoreLabel = [[UILabel alloc] initWithFrame:CGRectMake(60,220, 250, 50)];
         [scoreLabel setFont:[UIFont fontWithName:@"helvetica" size:40]];
-        [scoreLabel setText:@"Value"];
         [scoreLabel setTextColor:THEME_COLOR];
         
+       
         
         replayButton = [[UIButton alloc] initWithFrame:CGRectMake(60, 300, 200, 70)];
         [replayButton setBackgroundColor:THEME_COLOR];
@@ -43,6 +48,7 @@
         
         [self addSubview:gameOverLabel];
         [self addSubview:scoreLabel];
+        [self addSubview:highScoreLabel];
         [self addSubview:replayButton];
     }
     return self;

@@ -34,7 +34,7 @@
 		1DA251C619A7405800B24F90 /* 1.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251C219A7405800B24F90 /* 1.PNG */; };
 		1DA251C719A7405800B24F90 /* 2.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251C319A7405800B24F90 /* 2.PNG */; };
 		1DA251C819A7405800B24F90 /* 3.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DA251C419A7405800B24F90 /* 3.PNG */; };
-		9214173619A528DA00EA5D19 /* download.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 9214173519A528DA00EA5D19 /* download.jpeg */; };
+		1DD3BB5D19A90FB100938546 /* placeholder.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1DD3BB5C19A90FB100938546 /* placeholder.jpg */; };
 		DE10C18EB6D94DE483A5428F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8318C453AEC745CE805CDD69 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -87,8 +87,8 @@
 		1DA251C219A7405800B24F90 /* 1.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.PNG; sourceTree = "<group>"; };
 		1DA251C319A7405800B24F90 /* 2.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.PNG; sourceTree = "<group>"; };
 		1DA251C419A7405800B24F90 /* 3.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.PNG; sourceTree = "<group>"; };
+		1DD3BB5C19A90FB100938546 /* placeholder.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = placeholder.jpg; sourceTree = "<group>"; };
 		8318C453AEC745CE805CDD69 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		9214173519A528DA00EA5D19 /* download.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = download.jpeg; sourceTree = "<group>"; };
 		B6DBA18D12614BEEB8D51C94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -162,7 +162,7 @@
 				1D1097E819A4411F0082185C /* AppDelegate.m */,
 				1D1097EA19A4411F0082185C /* Main.storyboard */,
 				1D1097F019A4411F0082185C /* Images.xcassets */,
-				9214173519A528DA00EA5D19 /* download.jpeg */,
+				1DD3BB5C19A90FB100938546 /* placeholder.jpg */,
 				1D1097DF19A4411F0082185C /* Supporting Files */,
 				1D10981419A464890082185C /* GameObjectManager.h */,
 				1D10981519A464890082185C /* GameObjectManager.m */,
@@ -318,10 +318,10 @@
 				1D1097F119A4411F0082185C /* Images.xcassets in Resources */,
 				1DA251C619A7405800B24F90 /* 1.PNG in Resources */,
 				1DA251B719A68E1000B24F90 /* Game_icon.png in Resources */,
+				1DD3BB5D19A90FB100938546 /* placeholder.jpg in Resources */,
 				1DA251C819A7405800B24F90 /* 3.PNG in Resources */,
 				1DA251C719A7405800B24F90 /* 2.PNG in Resources */,
 				1D1097E319A4411F0082185C /* InfoPlist.strings in Resources */,
-				9214173619A528DA00EA5D19 /* download.jpeg in Resources */,
 				1D10981119A463FC0082185C /* Podfile in Resources */,
 				1D1097EC19A4411F0082185C /* Main.storyboard in Resources */,
 				1DA251C519A7405800B24F90 /* 0.PNG in Resources */,

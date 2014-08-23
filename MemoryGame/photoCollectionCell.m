@@ -19,13 +19,14 @@
     if (self) {
         // Initialization code
         
-        loader = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(35,40, 10, 10)];
+        loader = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(35,35, 10, 10)];
         loader.activityIndicatorViewStyle=UIActivityIndicatorViewStyleGray;
         [loader startAnimating];
         photoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [photoView.layer setCornerRadius:5.f];
         [self.layer setCornerRadius:5.f];
         self.backgroundColor=THEME_COLOR;
+        self.alpha=0.2;
         [self addSubview:photoView];
         [self addSubview:loader];
     

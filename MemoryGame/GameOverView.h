@@ -14,5 +14,7 @@
 @property (nonatomic, strong) UILabel *scoreLabel;
 @property (nonatomic, strong) UIButton *replayButton;
 
+@property (nonatomic, strong) UILabel *highScoreLabel;
+
 
 @end
