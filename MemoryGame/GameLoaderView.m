@@ -60,17 +60,6 @@
 }
 
 
-//-(void) addReloadButton {
-//    
-//}
-//
-//-(void) addActivityIndicator {
-//    
-//}
-//
-//-(void) addIllFormedLabel {
-//    
-//}
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -22,6 +22,7 @@
     int imagesToBePlaced;
     int randomNum;
     int score;
+    int imagesLoaded;
     //CGRect randomImageActualframe;
     
 }
@@ -87,6 +88,7 @@
 
 -(void) setInitialParams {
     
+    imagesLoaded = 0;
     score = 0;
     seconds = 15;
     imagesToBePlaced = 9;
@@ -248,6 +250,7 @@
     
     randomImage  = [[UIImageView alloc] initWithFrame:CGRectMake(100, 420, 120, 120)];
     //randomImage.image= [UIImage imageNamed:@"download.jpeg"];
+    randomImage.layer.masksToBounds=YES;
     [self.view addSubview:randomImage];
     
     
@@ -316,9 +319,10 @@
                           placeholderImage:nil
                                  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageUrl) {
                                      
+                                     imagesLoaded++;
                                      [cell.loader stopAnimating];
                                      
-                                     if(arrayIndex == [photosArray count]-1)
+                                     if(imagesLoaded == [photosArray count])
                                      {
                                          [self addTimerLabel];
                                      }
@@ -442,18 +446,15 @@
         {
             
             
-            if(i<9) {
-                
+            if(i>8) {
+                break;
+            }
+            
                 PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
                 
                 [photosArray addObject:photobj];
                 
                 i++;
-            }
-            else {
-                
-                break;
-            }
             
         }
         
