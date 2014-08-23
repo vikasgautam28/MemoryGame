@@ -34,7 +34,7 @@
 		1DD3BB6C19A9245F00938546 /* 3.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DD3BB6819A9245F00938546 /* 3.PNG */; };
 		1DD3BB7019A926A800938546 /* 0.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DD3BB6D19A926A800938546 /* 0.PNG */; };
 		1DD3BB7119A926A800938546 /* 1.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DD3BB6E19A926A800938546 /* 1.PNG */; };
-		1DD3BB7419A926CC00938546 /* 2.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DD3BB7319A926CC00938546 /* 2.PNG */; };
+		1DD3BB7619A9275400938546 /* 2.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 1DD3BB7519A9275400938546 /* 2.PNG */; };
 		DE10C18EB6D94DE483A5428F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8318C453AEC745CE805CDD69 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +87,7 @@
 		1DD3BB6819A9245F00938546 /* 3.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.PNG; sourceTree = "<group>"; };
 		1DD3BB6D19A926A800938546 /* 0.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.PNG; sourceTree = "<group>"; };
 		1DD3BB6E19A926A800938546 /* 1.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.PNG; sourceTree = "<group>"; };
-		1DD3BB7319A926CC00938546 /* 2.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.PNG; sourceTree = "<group>"; };
+		1DD3BB7519A9275400938546 /* 2.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.PNG; sourceTree = "<group>"; };
 		8318C453AEC745CE805CDD69 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DBA18D12614BEEB8D51C94 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -229,9 +229,9 @@
 		1DA251C919A74D9B00B24F90 /* screenshots */ = {
 			isa = PBXGroup;
 			children = (
+				1DD3BB7519A9275400938546 /* 2.PNG */,
 				1DD3BB6D19A926A800938546 /* 0.PNG */,
 				1DD3BB6E19A926A800938546 /* 1.PNG */,
-				1DD3BB7319A926CC00938546 /* 2.PNG */,
 				1DD3BB6819A9245F00938546 /* 3.PNG */,
 			);
 			name = screenshots;
@@ -315,7 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DD3BB7419A926CC00938546 /* 2.PNG in Resources */,
+				1DD3BB7619A9275400938546 /* 2.PNG in Resources */,
 				1DD3BB7019A926A800938546 /* 0.PNG in Resources */,
 				1D1097F119A4411F0082185C /* Images.xcassets in Resources */,
 				1DA251B719A68E1000B24F90 /* Game_icon.png in Resources */,
