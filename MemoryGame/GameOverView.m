@@ -38,7 +38,7 @@
         [scoreLabel setFont:[UIFont fontWithName:@"helvetica" size:40]];
         [scoreLabel setTextColor:THEME_COLOR];
         
-       
+        
         
         replayButton = [[UIButton alloc] initWithFrame:CGRectMake(60, 300, 200, 70)];
         [replayButton setBackgroundColor:THEME_COLOR];
@@ -55,12 +55,12 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

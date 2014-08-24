@@ -188,7 +188,7 @@
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         
         if([prefs objectForKey:HIGH_SCORE]==nil) {
-        
+            
             [prefs setObject:[NSString stringWithFormat:@"%i", score] forKey:HIGH_SCORE];
             [prefs synchronize];
         }
@@ -416,7 +416,7 @@
     NSString *jsonString = [NSString stringWithUTF8String:[responseObject bytes]];
     NSLog(@"%@",jsonString);
     
-    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\'" withString:@"'"]; //Cleaning the received json, a bug in the API which replaces ' by \' .
+    jsonString = [jsonString stringByReplacingOccurrencesOfString:@"\\'" withString:@"'"]; //Cleaning the received json, a bug in the flickr API which replaces ' by \' .
     
     NSData* bytes = [jsonString dataUsingEncoding:NSUTF16StringEncoding];
     NSError *jsonParsingError = nil;
@@ -450,11 +450,11 @@
                 break;
             }
             
-                PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
-                
-                [photosArray addObject:photobj];
-                
-                i++;
+            PhotoData * photobj = [[PhotoData alloc] initWithJSON:photoJSON];
+            
+            [photosArray addObject:photobj];
+            
+            i++;
             
         }
         
@@ -480,8 +480,8 @@
 }
 
 
--(void)didFailToLoadObjectsfromURLPath:(NSString*)URLPath fetchedResponseObject:(id)error{
-   
+-(void)didFailToLoadObjectsfromURLPath:(NSString*)URLPath fetchedResponseObject:(id)error {
+    
     
     [loaderView.activityIndicator stopAnimating];
     
@@ -495,8 +495,8 @@
                      completion:^(BOOL finished) {
                          
                      }];
-
-   
+    
+    
 }
 
 #pragma animations
@@ -511,7 +511,7 @@
     positionAnimation.velocity = @3000;
     positionAnimation.springBounciness = 15;
     [positionAnimation setCompletionBlock:^(POPAnimation *animation, BOOL finished) {
-        //self.button.userInteractionEnabled = YES;
+        
     }];
     [randomImage.layer pop_addAnimation:positionAnimation forKey:@"positionAnimation"];
 }

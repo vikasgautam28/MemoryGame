@@ -19,7 +19,7 @@
     if (self) {
         
         
-
+        
         CGRect itemFrame = CGRectMake(0, 0, 150, 70);
         CGPoint center = CGPointMake((SCREEN_WIDTH/2), (SCREEN_HEIGHT/2));
         reloadButton = [[UIButton alloc] initWithFrame:itemFrame];
@@ -29,7 +29,7 @@
         [reloadButton setTitle:@"Reload" forState:UIControlStateNormal];
         [reloadButton.layer setCornerRadius:5.f];
         
-       
+        
         
         activityIndicator  = [[UIActivityIndicatorView alloc] initWithFrame:itemFrame];
         [activityIndicator setCenter:CGPointMake(center.x, center.y-100)];
@@ -62,12 +62,12 @@
 
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
 @end

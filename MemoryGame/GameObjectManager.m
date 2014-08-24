@@ -13,7 +13,7 @@
 #define BASEURL @"https://api.flickr.com"
 @implementation GameObjectManager
 
-static GameObjectManager * objectManager=nil;
+static GameObjectManager * objectManager=nil; //
 
 
 +(GameObjectManager*) getManager {
@@ -21,8 +21,8 @@ static GameObjectManager * objectManager=nil;
     if(objectManager==nil)
     {
         
-        static dispatch_once_t pred;        // Lock
-        dispatch_once(&pred, ^{             // This code is called at most once per app
+        static dispatch_once_t pred;
+        dispatch_once(&pred, ^{
             objectManager = [[GameObjectManager alloc] init];
         });
     }
@@ -52,7 +52,7 @@ static GameObjectManager * objectManager=nil;
         
         if([delegate respondsToSelector:@selector(didLoadObjectsfromURLPath:fetchedResponseObject:)]) {
             
-         [delegate didLoadObjectsfromURLPath:URLPath fetchedResponseObject:responseObject];
+            [delegate didLoadObjectsfromURLPath:URLPath fetchedResponseObject:responseObject];
             
         }
         
